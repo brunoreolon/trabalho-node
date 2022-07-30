@@ -7,7 +7,7 @@ module.exports = {
         try {
             const persons = await PersonModel.find({person :req.person});
 
-            res. status(200).json({
+            res.status(200).json({
                 count: persons.length,
                 persons: persons.map(person => {
                     return {
