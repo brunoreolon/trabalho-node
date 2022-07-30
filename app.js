@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
 
 mongoose.connect(process.env.MONGODB_URI,
     {
@@ -26,6 +27,10 @@ const addressRoutes = require('./api/routes/address');
 
 app.use('/persons', personRoutes);
 app.use('/address', addressRoutes);
+
+let swaggerSpec = require('./api/config/swagger');
+app.use('/api-docs', swaggerUi.serve, 
+         swaggerUi.setup(swaggerSpec));
 
 app.get('/', (req, res) => {
     res.send('A simple Node App is '
